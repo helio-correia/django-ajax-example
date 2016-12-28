@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>.completed { text-decoration: line-through; }</style>
+</head>
+<body>
+    <h2>Tasks</h2>
+
+    <ul class="list-group">
+        {% for task in tasks %}
+            <li class="list-group-item">
+                <a href="{% url 'tasks:change_state' task.id %}"
+                    class="task{% if task.completed %} completed{% endif %}"
+                    onclick='changeState(event, $(this))'>
+                    {{ task }}
+                </a>
+                <a href="{% url 'tasks:delete' task.id %}" onclick='deleteTask(event, $(this))'>x</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <form method="post" onsubmit='createTask (event, $(this))'>
+        {% csrf_token %}
+        {{ form.name }}
+        <button type="submit">create</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="{% url 'js_reverse' %}" type="text/javascript"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
