@@ -13,7 +13,7 @@
         {% for task in tasks %}
             <li class="list-group-item">
                 <a href="{% url 'tasks:change_state' task.id %}"
-                    class="task{% if task.completed %} completed{% endif %}"
+                    class="task {% if task.completed %}completed{% endif %}"
                     onclick='changeState(event, $(this))'>
                     {{ task }}
                 </a>

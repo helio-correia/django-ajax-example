@@ -17,14 +17,6 @@ def index(request):
     return render(request, 'tasks/index.html', {'tasks': Task.objects.all(), 'form': form})
 
 
-def create(request):
-    if request.method == 'POST' and request.is_ajax():
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return JsonResponse(model_to_dict(form.instance))
-
-
 def change_state(request, id):
     task = Task.objects.get(pk=id)
     task.completed = not task.completed
